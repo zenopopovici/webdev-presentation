@@ -17,14 +17,14 @@ export default function BrowserDetailsSlide({ contentVisible = true }: SlideProp
   ]
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-cyan font-display text-sm tracking-widest uppercase">Călătoria</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-cyan font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Călătoria</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           De la <span className="text-cyber-cyan">URL</span> la <span className="text-cyber-pink">Pixeli</span>
         </h1>
       </motion.div>

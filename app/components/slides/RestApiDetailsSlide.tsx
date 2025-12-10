@@ -15,14 +15,14 @@ export default function RestApiDetailsSlide({ contentVisible = true }: SlideProp
   ]
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-purple font-display text-sm tracking-widest uppercase">REST Principles</span>
-        <h1 className="text-4xl font-body font-bold mt-2">
+        <span className="text-cyber-purple font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">REST Principles</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           Stateless & Resource-Based
         </h1>
       </motion.div>
@@ -33,7 +33,7 @@ export default function RestApiDetailsSlide({ contentVisible = true }: SlideProp
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 grid grid-cols-2 gap-8"
+            className="flex-1 grid grid-cols-2 gap-[clamp(1rem,2vw,2rem)] min-h-0 overflow-hidden"
           >
             {/* Left column: REST constraints */}
             <motion.div

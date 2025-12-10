@@ -13,6 +13,7 @@ export default function SlidePage() {
   const [direction, setDirection] = useState(0)
   const [contentVisible, setContentVisible] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
+  const [showSlideMenu, setShowSlideMenu] = useState(false)
 
   // Find current slide
   const slideData = getSlideBySlug(slug)
@@ -92,12 +93,16 @@ export default function SlidePage() {
     }
   }, [currentSlide, goToSlide])
 
-  const openPresenterView = () => {
-    window.open('/presenter', 'presenter', 'width=1200,height=800')
-  }
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (showSlideMenu) {
+        if (e.key === 'Escape') {
+          e.preventDefault()
+          setShowSlideMenu(false)
+        }
+        return
+      }
+
       switch (e.key) {
         case 'ArrowRight':
         case ' ':
@@ -118,28 +123,26 @@ export default function SlidePage() {
           e.preventDefault()
           goToSlide(slides.length - 1)
           break
-        case 'p':
-        case 'P':
-          e.preventDefault()
-          openPresenterView()
-          break
         case 'g':
         case 'G':
           e.preventDefault()
-          const input = prompt(`Go to slide (1-${slides.length}):`)
-          if (input) {
-            const num = parseInt(input)
-            if (num >= 1 && num <= slides.length) {
-              goToSlide(num - 1)
-            }
-          }
+          setShowSlideMenu(true)
+          break
+        case 'p':
+        case 'P':
+          e.preventDefault()
+          window.open('/presenter', '_blank')
+          break
+        case 'Escape':
+          e.preventDefault()
+          setShowSlideMenu(false)
           break
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [nextSlide, prevSlide, goToSlide])
+  }, [nextSlide, prevSlide, goToSlide, showSlideMenu])
 
   const slideVariants = {
     enter: (direction: number) => ({
@@ -177,78 +180,36 @@ export default function SlidePage() {
         />
       </div>
 
-      {/* Slide Counter - Clickable */}
-      <button
-        onClick={() => {
-          const input = prompt(`Go to slide (1-${slides.length}):`)
-          if (input) {
-            const num = parseInt(input)
-            if (num >= 1 && num <= slides.length) {
-              goToSlide(num - 1)
-            }
-          }
-        }}
-        className="absolute top-6 right-8 z-50 font-display text-sm text-white/50 hover:text-white/80 transition-colors cursor-pointer"
-        title="Click to go to slide (or press G)"
-      >
-        <span className="text-cyber-purple font-bold">{currentSlide + 1}</span>
-        <span className="mx-2">/</span>
-        <span>{slides.length}</span>
-      </button>
-
-      {/* Presenter View Button */}
-      <button
-        onClick={openPresenterView}
-        className="absolute top-6 left-8 z-50 px-3 py-1 text-xs font-display text-white/50 hover:text-white/80 bg-white/5 hover:bg-white/10 rounded transition-all"
-        title="Apasă P pentru Modul Prezentator"
-      >
-        🎤 Prezentator
-      </button>
-
-      {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2">
-        {slides.map((slide, index) => (
-          <button
-            key={slide.slug}
-            onClick={() => goToSlide(index)}
-            title={`${index + 1}. ${slide.name}`}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? 'bg-cyber-purple w-8 glow-purple'
-                : 'bg-white/30 hover:bg-white/50'
-            }`}
-          />
-        ))}
+      {/* Home Button, Hamburger Menu & Slide Counter */}
+      <div className="absolute top-6 right-8 z-50 flex items-center gap-3">
+        <button
+          onClick={() => goToSlide(0)}
+          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+          title="Go to first slide (Home)"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+        </button>
+        <button
+          onClick={() => setShowSlideMenu(true)}
+          className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all cursor-pointer"
+          title="Open slides menu (or press G)"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <button
+          onClick={() => setShowSlideMenu(true)}
+          className="font-display text-sm text-white/50 hover:text-white/80 transition-colors cursor-pointer"
+          title="Click to go to slide (or press G)"
+        >
+          <span className="text-cyber-purple font-bold">{currentSlide + 1}</span>
+          <span className="mx-2">/</span>
+          <span>{slides.length}</span>
+        </button>
       </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        disabled={currentSlide === 0}
-        className={`absolute left-8 top-1/2 -translate-y-1/2 z-50 p-4 rounded-full transition-all duration-300 ${
-          currentSlide === 0
-            ? 'opacity-20 cursor-not-allowed'
-            : 'opacity-60 hover:opacity-100 hover:bg-white/10'
-        }`}
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button
-        onClick={nextSlide}
-        disabled={currentSlide === slides.length - 1}
-        className={`absolute right-8 top-1/2 -translate-y-1/2 z-50 p-4 rounded-full transition-all duration-300 ${
-          currentSlide === slides.length - 1
-            ? 'opacity-20 cursor-not-allowed'
-            : 'opacity-60 hover:opacity-100 hover:bg-white/10'
-        }`}
-      >
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
 
       {/* Slides */}
       <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -270,18 +231,68 @@ export default function SlidePage() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Keyboard hints */}
-      <div className="absolute bottom-8 right-8 z-50 text-xs text-white/30 font-display">
-        <span className="px-2 py-1 bg-white/5 rounded mr-2">←</span>
-        <span className="px-2 py-1 bg-white/5 rounded mr-2">→</span>
-        <span className="text-white/20">{contentVisible ? 'navigare' : 'arată conținut'}</span>
-        <span className="mx-2 text-white/10">|</span>
-        <span className="px-2 py-1 bg-white/5 rounded mr-1">G</span>
-        <span className="text-white/20">go to</span>
-        <span className="mx-2 text-white/10">|</span>
-        <span className="px-2 py-1 bg-white/5 rounded mr-1">P</span>
-        <span className="text-white/20">prezentator</span>
-      </div>
+      {/* Slide Menu Modal */}
+      <AnimatePresence>
+        {showSlideMenu && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowSlideMenu(false)}
+              className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100]"
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              className="fixed top-16 right-8 w-[clamp(20rem,35vw,28rem)] max-h-[80vh] z-[101] diagram-box overflow-hidden flex flex-col"
+            >
+              <div className="p-6 border-b border-white/10 flex items-center justify-between">
+                <h2 className="text-2xl font-body font-bold text-cyber-cyan">Selectează Slide</h2>
+                <button
+                  onClick={() => setShowSlideMenu(false)}
+                  className="text-white/50 hover:text-white transition-colors text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-4">
+                <div className="grid grid-cols-1 gap-2">
+                  {slides.map((slide, index) => (
+                    <button
+                      key={slide.slug}
+                      onClick={() => {
+                        goToSlide(index)
+                        setShowSlideMenu(false)
+                      }}
+                      className={`p-4 rounded-lg text-left transition-all ${
+                        index === currentSlide
+                          ? 'bg-cyber-purple/30 border-2 border-cyber-purple'
+                          : 'bg-white/5 hover:bg-white/10 border-2 border-transparent'
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        <span className={`text-lg font-bold ${
+                          index === currentSlide ? 'text-cyber-purple' : 'text-white/50'
+                        }`}>
+                          {index + 1}
+                        </span>
+                        <span className="flex-1 text-white/90 font-display text-lg">
+                          {slide.name}
+                        </span>
+                        {index === currentSlide && (
+                          <span className="text-cyber-purple">●</span>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

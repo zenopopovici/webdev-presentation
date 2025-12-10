@@ -1,17 +1,22 @@
 // Slide Components
 import TitleSlide from '@/app/components/slides/TitleSlide'
+import MemeSlide0 from '@/app/components/slides/MemeSlide0'
 import BrowserSlide from '@/app/components/slides/BrowserSlide'
 import BrowserDetailsSlide from '@/app/components/slides/BrowserDetailsSlide'
 import JavaScriptSlide from '@/app/components/slides/JavaScriptSlide'
 import EventLoopSlide from '@/app/components/slides/EventLoopSlide'
 import RestApiSlide from '@/app/components/slides/RestApiSlide'
 import RestApiDetailsSlide from '@/app/components/slides/RestApiDetailsSlide'
+import MemeSlide2 from '@/app/components/slides/MemeSlide2'
 import PokerGameSlide from '@/app/components/slides/PokerGameSlide'
 import PokerCodeSlide from '@/app/components/slides/PokerCodeSlide'
+import MemeSlide3 from '@/app/components/slides/MemeSlide3'
 import SecuritySlide from '@/app/components/slides/SecuritySlide'
+import MemeSlide1 from '@/app/components/slides/MemeSlide1'
 import DockerIntroSlide from '@/app/components/slides/DockerIntroSlide'
 import DockerHowSlide from '@/app/components/slides/DockerHowSlide'
 import DockerfileSlide from '@/app/components/slides/DockerfileSlide'
+import MemeSlide4 from '@/app/components/slides/MemeSlide4'
 import CICDSlide from '@/app/components/slides/CICDSlide'
 import GitHubActionsSlide from '@/app/components/slides/GitHubActionsSlide'
 import GitHubActionsFileSlide from '@/app/components/slides/GitHubActionsFileSlide'
@@ -25,18 +30,23 @@ export interface SlideConfig {
 
 export const slides: SlideConfig[] = [
   { component: TitleSlide, name: 'Titlu', slug: 'title' },
+  { component: MemeSlide0, name: '😎 You Little Rebel', slug: 'meme-intro' },
   { component: BrowserSlide, name: 'Browser', slug: 'browser' },
   { component: BrowserDetailsSlide, name: 'Browser Details', slug: 'browser-details' },
   { component: JavaScriptSlide, name: 'JavaScript', slug: 'javascript' },
   { component: EventLoopSlide, name: 'Event Loop', slug: 'event-loop' },
   { component: RestApiSlide, name: 'REST API', slug: 'rest-api' },
   { component: RestApiDetailsSlide, name: 'REST API Details', slug: 'rest-api-details' },
+  { component: MemeSlide2, name: '😅 Status Codes', slug: 'meme-status' },
   { component: PokerGameSlide, name: 'Poker Game Demo', slug: 'poker-game' },
   { component: PokerCodeSlide, name: 'Poker Code', slug: 'poker-code' },
+  { component: MemeSlide3, name: '🔐 Password Meme', slug: 'meme-password' },
   { component: SecuritySlide, name: 'Security', slug: 'security' },
+  { component: MemeSlide1, name: '🐳 Works on my machine', slug: 'meme-docker' },
   { component: DockerIntroSlide, name: 'Docker Intro', slug: 'docker-intro' },
   { component: DockerHowSlide, name: 'Docker How', slug: 'docker-how' },
   { component: DockerfileSlide, name: 'Dockerfile', slug: 'dockerfile' },
+  { component: MemeSlide4, name: '📝 Git Commits', slug: 'meme-git' },
   { component: CICDSlide, name: 'CI/CD', slug: 'cicd' },
   { component: GitHubActionsSlide, name: 'GitHub Actions', slug: 'github-actions' },
   { component: GitHubActionsFileSlide, name: 'GitHub Actions File', slug: 'github-actions-file' },

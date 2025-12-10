@@ -8,14 +8,14 @@ interface SlideProps {
 
 export default function PokerCodeSlide({ contentVisible = true }: SlideProps) {
   return (
-    <div className="w-full h-full flex flex-col p-12">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-4"
+        className="mb-[clamp(0.25rem,0.75vw,0.75rem)] flex-shrink-0"
       >
-        <span className="text-cyber-orange font-display text-sm tracking-widest uppercase">Behind the Scenes</span>
-        <h1 className="text-4xl font-body font-bold mt-2">
+        <span className="text-cyber-orange font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Behind the Scenes</span>
+        <h1 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-body font-bold mt-1">
           Cum am creat <span className="text-cyber-orange">Poker Game</span> 🛠️
         </h1>
       </motion.div>
@@ -26,14 +26,14 @@ export default function PokerCodeSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex gap-6"
+            className="flex-1 flex gap-[clamp(0.5rem,1vw,1.5rem)] min-h-0 overflow-hidden"
           >
             {/* Left Column: API Calls */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex-1 flex flex-col gap-4"
+              className="flex-1 min-w-0 flex flex-col gap-[clamp(0.5rem,0.75vw,1rem)] overflow-y-auto"
             >
               <h3 className="text-lg font-body font-semibold text-white/80">1️⃣ API Calls cu fetch()</h3>
               
@@ -95,7 +95,7 @@ const data = await res.json();
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="flex-1 flex flex-col gap-4"
+              className="flex-1 min-w-0 flex flex-col gap-[clamp(0.5rem,0.75vw,1rem)] overflow-y-auto"
             >
               <h3 className="text-lg font-body font-semibold text-white/80">2️⃣ React State</h3>
               
@@ -157,7 +157,7 @@ const [gamePhase, setGamePhase] =
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 }}
-              className="w-80 flex flex-col gap-4"
+              className="w-[clamp(16rem,22vw,20rem)] flex-shrink-0 flex flex-col gap-[clamp(0.5rem,0.75vw,1rem)] overflow-y-auto"
             >
               <h3 className="text-lg font-body font-semibold text-white/80">3️⃣ Evaluare Mână</h3>
               

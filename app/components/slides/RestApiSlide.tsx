@@ -16,14 +16,14 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
   ]
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(1rem,2vw,2rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-cyan font-display text-sm tracking-widest uppercase">Comunicare</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-cyan font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Comunicare</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           Cum funcționează <span className="text-cyber-cyan">REST API</span>
         </h1>
       </motion.div>
@@ -34,14 +34,14 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex gap-12"
+            className="flex-1 flex gap-[clamp(1rem,2vw,3rem)] min-h-0 overflow-hidden"
           >
             {/* Client-Server Diagram */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex-1 flex flex-col items-center justify-center"
+              className="flex-1 min-w-0 flex flex-col items-center justify-center overflow-y-auto"
             >
               <div className="relative w-full flex items-center justify-between px-8">
                 {/* Client */}
@@ -53,21 +53,21 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
                 >
                   <span className="text-4xl block mb-2">💻</span>
                   <h4 className="text-cyber-purple font-body font-semibold">Client</h4>
-                  <p className="text-white/50 text-xs mt-1">Aplicație React</p>
+                  <p className="text-white/50 text-[clamp(0.875rem,1.2vw,1rem)] mt-1">Aplicație React</p>
                 </motion.div>
 
                 {/* Arrows */}
-                <div className="flex-1 mx-4 relative h-24">
-                  <svg className="w-full h-full" viewBox="0 0 200 80">
+                <div className="flex-1 mx-[clamp(1rem,3vw,2rem)] relative h-24 min-w-[200px]">
+                  <svg className="w-full h-full" viewBox="0 0 400 80" preserveAspectRatio="none">
                     {/* Request Arrow */}
                     <motion.g
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.6 }}
                     >
-                      <line x1="10" y1="25" x2="180" y2="25" stroke="#06b6d4" strokeWidth="2" strokeDasharray="8 4" className="data-flow-line" />
-                      <polygon points="185,25 175,20 175,30" fill="#06b6d4" />
-                      <text x="95" y="18" textAnchor="middle" fill="#06b6d4" fontSize="10" fontFamily="monospace">CERERE</text>
+                      <line x1="10" y1="25" x2="380" y2="25" stroke="#06b6d4" strokeWidth="2" strokeDasharray="8 4" className="data-flow-line" />
+                      <polygon points="385,25 375,20 375,30" fill="#06b6d4" />
+                      <text x="195" y="18" textAnchor="middle" fill="#06b6d4" fontSize="10" fontFamily="monospace">CERERE</text>
                     </motion.g>
                     
                     {/* Response Arrow */}
@@ -76,9 +76,9 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.8 }}
                     >
-                      <line x1="190" y1="55" x2="20" y2="55" stroke="#10b981" strokeWidth="2" strokeDasharray="8 4" className="data-flow-line" />
+                      <line x1="390" y1="55" x2="20" y2="55" stroke="#10b981" strokeWidth="2" strokeDasharray="8 4" className="data-flow-line" />
                       <polygon points="15,55 25,50 25,60" fill="#10b981" />
-                      <text x="105" y="70" textAnchor="middle" fill="#10b981" fontSize="10" fontFamily="monospace">RĂSPUNS</text>
+                      <text x="205" y="70" textAnchor="middle" fill="#10b981" fontSize="10" fontFamily="monospace">RĂSPUNS</text>
                     </motion.g>
                   </svg>
                 </div>
@@ -92,7 +92,7 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
                 >
                   <span className="text-4xl block mb-2">🖥️</span>
                   <h4 className="text-cyber-green font-body font-semibold">Server</h4>
-                  <p className="text-white/50 text-xs mt-1">REST API</p>
+                  <p className="text-white/50 text-[clamp(0.875rem,1.2vw,1rem)] mt-1">REST API</p>
                 </motion.div>
               </div>
 
@@ -110,7 +110,7 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
                     <div className="w-3 h-3 rounded-full bg-green-500/50" />
                     <span className="text-white/30 text-xs ml-2">răspuns.json</span>
                   </div>
-                  <pre className="text-sm">
+                  <pre className="text-[clamp(0.875rem,1.3vw,1rem)]">
                     <code>
                       <span className="text-white/50">{'{'}</span>{'\n'}
                       <span className="text-cyber-purple">  &quot;status&quot;</span>: <span className="text-cyber-green">200</span>,{'\n'}
@@ -130,10 +130,10 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="w-80"
+              className="w-[clamp(18rem,25vw,20rem)] flex-shrink-0 flex flex-col overflow-y-auto"
             >
-              <h3 className="text-lg font-body font-semibold mb-4 text-white/80">Metode HTTP</h3>
-              <div className="space-y-3">
+              <h3 className="text-[clamp(1.125rem,1.5vw,1.25rem)] font-body font-semibold mb-[clamp(0.5rem,1vw,1rem)] text-white/80 flex-shrink-0">Metode HTTP</h3>
+              <div className="space-y-[clamp(0.5rem,0.75vw,0.75rem)]">
                 {methods.map((m, i) => (
                   <motion.div
                     key={m.method}
@@ -146,8 +146,8 @@ export default function RestApiSlide({ contentVisible = true }: SlideProps) {
                       {m.method}
                     </span>
                     <div className="flex-1">
-                      <p className="text-white/70 text-sm">{m.desc}</p>
-                      <code className="text-xs text-white/40">{m.example}</code>
+                      <p className="text-white/70 text-[clamp(1rem,1.5vw,1.25rem)]">{m.desc}</p>
+                      <code className="text-[clamp(0.875rem,1.2vw,1rem)] text-white/40">{m.example}</code>
                     </div>
                   </motion.div>
                 ))}

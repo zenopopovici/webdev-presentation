@@ -27,7 +27,24 @@ export const presenterNotes: SlideNote[] = [
     duration: '2 min',
   },
 
-  // Slide 2: Browser
+  // Slide 2: Meme Intro
+  {
+    title: 'You Little Rebel',
+    icon: '😎',
+    notes: [
+      'Slide de relaxare și umor pentru a crea o atmosferă prietenoasă.',
+      'Perfect moment pentru a sparge gheața și a face studenții să se simtă confortabil.',
+      'Nu trebuie să explici prea mult - lasă meme-ul să vorbească de la sine!',
+    ],
+    keyPoints: [
+      'Break the ice',
+      'Create friendly atmosphere',
+      'Keep it light',
+    ],
+    duration: '30 sec',
+  },
+
+  // Slide 3: Browser
   {
     title: 'Cum funcționează Browser-ul',
     icon: '🌐',
@@ -49,7 +66,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '4 min',
   },
 
-  // Slide 3: URL to Pixels
+  // Slide 4: URL to Pixels
   {
     title: 'De la URL la Pixels',
     icon: '🎨',
@@ -73,7 +90,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 4: JavaScript
+  // Slide 5: JavaScript
   {
     title: 'Cum funcționează JavaScript',
     icon: '⚡',
@@ -94,7 +111,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 5: Event Loop
+  // Slide 6: Event Loop
   {
     title: 'Event Loop',
     icon: '🔄',
@@ -116,7 +133,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '6 min',
   },
 
-  // Slide 6: REST API
+  // Slide 7: REST API
   {
     title: 'Cum funcționează REST API',
     icon: '🔄',
@@ -141,7 +158,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 7: REST Details
+  // Slide 8: REST Details
   {
     title: 'REST Principles',
     icon: '📋',
@@ -163,7 +180,24 @@ export const presenterNotes: SlideNote[] = [
     duration: '4 min',
   },
 
-  // Slide 8: Poker Game Demo
+  // Slide 9: Meme - API/HTTP related
+  {
+    title: 'API Meme',
+    icon: '😅',
+    notes: [
+      'Moment de umor după explicațiile despre REST API.',
+      'Perfect pentru a face pauză și a permite studenților să proceseze informațiile.',
+      'Tranziție către demo-ul live cu Poker Game.',
+    ],
+    keyPoints: [
+      'Relatable content',
+      'Break between topics',
+      'Keep engagement high',
+    ],
+    duration: '30 sec',
+  },
+
+  // Slide 10: Poker Game Demo
   {
     title: 'Poker Game - API în Acțiune',
     icon: '🃏',
@@ -188,7 +222,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 9: Poker Code Explanation
+  // Slide 11: Poker Code Explanation
   {
     title: 'Cum am creat Poker Game',
     icon: '🛠️',
@@ -215,7 +249,24 @@ export const presenterNotes: SlideNote[] = [
     duration: '6 min',
   },
 
-  // Slide 10: Security Basics
+  // Slide 12: Meme - Password Security
+  {
+    title: 'Password Security Meme',
+    icon: '🔐',
+    notes: [
+      'Moment de umor înainte de secțiunea de Security.',
+      'Perfect pentru a introduce subiectul cu o notă ușoară.',
+      'Poți menționa că vom vedea cum să facem security corect în slide-urile următoare.',
+    ],
+    keyPoints: [
+      'Light introduction to security',
+      'Relatable humor',
+      'Transition to serious topic',
+    ],
+    duration: '30 sec',
+  },
+
+  // Slide 13: Security Basics
   {
     title: 'Security Basics',
     icon: '🔒',
@@ -239,7 +290,24 @@ export const presenterNotes: SlideNote[] = [
     duration: '6 min',
   },
 
-  // Slide 11: Docker Intro
+  // Slide 14: Meme - Docker/Containers
+  {
+    title: 'Docker Meme',
+    icon: '🐳',
+    notes: [
+      'Perfect moment pentru a introduce Docker!',
+      'Meme-ul ilustrează exact problema pe care Docker o rezolvă.',
+      'Tranziție naturală către explicația despre containers.',
+    ],
+    keyPoints: [
+      'Perfect segue to Docker',
+      'Real-world problem',
+      'Sets up Docker solution',
+    ],
+    duration: '30 sec',
+  },
+
+  // Slide 15: Docker Intro
   {
     title: 'Ce este Docker?',
     icon: '🐳',
@@ -261,7 +329,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 12: Docker How
+  // Slide 16: Docker How
   {
     title: 'Cum funcționează Docker',
     icon: '📦',
@@ -284,7 +352,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 13: Dockerfile
+  // Slide 17: Dockerfile
   {
     title: 'Dockerfile Simplu',
     icon: '📄',
@@ -307,7 +375,24 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 14: CI/CD
+  // Slide 18: Meme - Git Commits
+  {
+    title: 'Git Commit Messages Meme',
+    icon: '📝',
+    notes: [
+      'Moment de umor despre commit messages înainte de CI/CD.',
+      'Perfect pentru a menționa importanța commit messages clare în CI/CD pipelines.',
+      'Studenții vor recunoaște acest pattern din experiența lor.',
+    ],
+    keyPoints: [
+      'Relatable developer humor',
+      'Transition to CI/CD',
+      'Importance of good commits',
+    ],
+    duration: '30 sec',
+  },
+
+  // Slide 19: CI/CD
   {
     title: 'Ce este CI/CD?',
     icon: '🔄',
@@ -329,7 +414,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '4 min',
   },
 
-  // Slide 15: GitHub Actions Intro
+  // Slide 20: GitHub Actions Intro
   {
     title: 'GitHub Actions',
     icon: '🔄',
@@ -351,7 +436,7 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 16: GitHub Actions File
+  // Slide 21: GitHub Actions File
   {
     title: 'GitHub Actions Workflow',
     icon: '📝',
@@ -375,16 +460,18 @@ export const presenterNotes: SlideNote[] = [
     duration: '5 min',
   },
 
-  // Slide 17: Thank You
+  // Slide 22: Thank You
   {
     title: 'Mulțumesc!',
     icon: '🎉',
     notes: [
       'Recapitulează rapid cele 5 teme principale.',
+      'Arată QR code-ul către repository-ul GitHub - studenții pot accesa codul complet.',
+      'Menționează că toate exemplele sunt disponibile în folderul /examples.',
       'Încurajează studenții să practice aceste concepte.',
       'Sugerează proiecte practice: build o aplicație full-stack, containerize-o, adaugă CI/CD.',
       'Menționează resurse suplimentare: MDN, Docker docs, GitHub Actions docs.',
-      'Deschide sesiunea de întrebări.',
+      'Deschide sesiunea de întrebări - email disponibil pentru întrebări ulterioare.',
       'Mulțumește pentru atenție!',
     ],
     keyPoints: [
@@ -392,6 +479,8 @@ export const presenterNotes: SlideNote[] = [
       'Build real projects',
       'Contribute to open source',
       'Learn from mistakes',
+      'GitHub repo: github.com/zenopopovici/webdev-presentation',
+      'Contact: zeno@graffino.com',
     ],
     duration: '3 min',
   },

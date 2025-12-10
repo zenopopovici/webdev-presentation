@@ -26,6 +26,33 @@ html, body {
     font-family: 'Outfit', sans-serif;
 }
 
+/* Responsive font scaling based on viewport */
+html {
+    font-size: clamp(12px, 1vw, 16px);
+}
+
+@media (min-width: 1920px) {
+    html {
+        font-size: clamp(16px, 1.2vw, 20px);
+    }
+}
+
+@media (min-width: 2560px) {
+    html {
+        font-size: clamp(18px, 1.4vw, 24px);
+    }
+}
+
+/* Slide content responsive sizing */
+.slide-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(1rem, 3vw, 4rem);
+}
+
 /* Animated gradient background */
 .bg-gradient-animated {
     background: linear-gradient(135deg,
@@ -75,6 +102,10 @@ html, body {
 
 .glow-green {
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 0 40px rgba(16, 185, 129, 0.3);
+}
+
+.glow-orange {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.5), 0 0 40px rgba(249, 115, 22, 0.3);
 }
 
 .text-glow-purple {

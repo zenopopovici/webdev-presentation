@@ -50,14 +50,14 @@ export default function GitHubActionsFileSlide({ contentVisible = true }: SlideP
   }
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(1rem,2vw,2rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-orange font-display text-sm tracking-widest uppercase">Exemplu de Cod</span>
-        <h1 className="text-4xl font-body font-bold mt-2">
+        <span className="text-cyber-orange font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Exemplu de Cod</span>
+        <h1 className="text-[clamp(2rem,4vw,2.5rem)] font-body font-bold mt-2">
           Workflow <span className="text-cyber-orange">GitHub Actions</span> Simplu
         </h1>
       </motion.div>
@@ -68,31 +68,31 @@ export default function GitHubActionsFileSlide({ contentVisible = true }: SlideP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex gap-8"
+            className="flex-1 flex gap-[clamp(1rem,2vw,2rem)] min-h-0 overflow-hidden"
           >
             {/* YAML File */}
             <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex-1"
+          className="flex-1 min-w-0 flex flex-col"
         >
-          <div className="code-block p-6 h-full overflow-auto">
-            <div className="flex items-center gap-2 mb-4">
+          <div className="code-block p-[clamp(1rem,1.5vw,1.5rem)] h-full overflow-auto flex flex-col">
+            <div className="flex items-center gap-2 mb-4 flex-shrink-0">
               <div className="w-3 h-3 rounded-full bg-red-500/50" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
               <div className="w-3 h-3 rounded-full bg-green-500/50" />
-              <span className="text-white/30 text-xs ml-2 font-display">.github/workflows/ci.yml</span>
+              <span className="text-white/30 text-[clamp(0.75rem,1vw,0.875rem)] ml-2 font-display">.github/workflows/ci.yml</span>
             </div>
-            <pre className="text-sm leading-5">
+            <pre className="text-[clamp(0.875rem,1.2vw,1rem)] leading-[1.6] flex-1">
               {yamlLines.map((line, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 + i * 0.02 }}
-                  style={{ paddingLeft: `${line.indent * 16}px` }}
-                  className={getColor(line.type)}
+                  style={{ paddingLeft: `${line.indent * 20}px` }}
+                  className={`${getColor(line.type)} whitespace-pre`}
                 >
                   {line.code || '\u00A0'}
                 </motion.div>
@@ -106,10 +106,10 @@ export default function GitHubActionsFileSlide({ contentVisible = true }: SlideP
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="w-80"
+          className="w-[clamp(18rem,25vw,20rem)] flex-shrink-0 flex flex-col overflow-hidden"
         >
-          <h3 className="text-lg font-body font-semibold mb-4 text-white/80">Explicații</h3>
-          <div className="space-y-3">
+          <h3 className="text-[clamp(1.125rem,1.5vw,1.25rem)] font-body font-semibold mb-[clamp(0.5rem,1vw,1rem)] text-white/80">Explicații</h3>
+          <div className="space-y-[clamp(0.5rem,0.75vw,0.75rem)] flex-1 overflow-y-auto">
             {[
               { key: 'name', desc: 'Numele afișat al workflow-ului', color: 'text-cyber-green' },
               { key: 'on', desc: 'Evenimentele care declanșează workflow-ul', color: 'text-cyber-cyan' },
@@ -124,10 +124,10 @@ export default function GitHubActionsFileSlide({ contentVisible = true }: SlideP
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.6 + i * 0.08 }}
-                className="diagram-box p-3"
+                className="diagram-box p-[clamp(0.5rem,0.75vw,0.75rem)]"
               >
-                <span className={`${item.color} font-display font-bold text-sm`}>{item.key}:</span>
-                <p className="text-white/60 text-xs mt-1">{item.desc}</p>
+                <span className={`${item.color} font-display font-bold text-[clamp(0.875rem,1.2vw,1rem)]`}>{item.key}:</span>
+                <p className="text-white/60 text-[clamp(0.75rem,1vw,0.875rem)] mt-1">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -137,10 +137,10 @@ export default function GitHubActionsFileSlide({ contentVisible = true }: SlideP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
-            className="mt-6 diagram-box p-4"
+            className="mt-[clamp(0.75rem,1vw,1rem)] diagram-box p-[clamp(0.75rem,1vw,1rem)] flex-shrink-0"
           >
-            <h4 className="text-sm font-body font-semibold text-cyber-purple mb-3">🧩 Acțiuni Populare</h4>
-            <div className="space-y-1 text-xs font-display">
+            <h4 className="text-[clamp(0.875rem,1.2vw,1rem)] font-body font-semibold text-cyber-purple mb-[clamp(0.5rem,0.75vw,0.75rem)]">🧩 Acțiuni Populare</h4>
+            <div className="space-y-1 text-[clamp(0.75rem,1vw,0.875rem)] font-display">
               <div className="text-white/60">actions/checkout</div>
               <div className="text-white/60">actions/setup-node</div>
               <div className="text-white/60">actions/cache</div>

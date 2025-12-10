@@ -159,17 +159,17 @@ export default function PokerGameSlide({ contentVisible = true }: SlideProps) {
   }, [cards, evaluateHand])
 
   return (
-    <div className="w-full h-full flex flex-col p-12">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-4"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-green font-display text-sm tracking-widest uppercase">Live Demo</span>
-        <h1 className="text-4xl font-body font-bold mt-2">
+        <span className="text-cyber-green font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Live Demo</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           🃏 <span className="text-cyber-green">Poker</span> Game - API în Acțiune
         </h1>
-        <p className="text-white/50 text-sm mt-1">
+        <p className="text-white/50 text-[clamp(0.75rem,1vw,0.875rem)] mt-1">
           Folosind <code className="text-cyber-cyan">deckofcardsapi.com</code> - un API REST real
         </p>
       </motion.div>
@@ -180,10 +180,10 @@ export default function PokerGameSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex flex-col"
+            className="flex-1 flex flex-col min-h-0 overflow-hidden"
           >
             {/* Game Area */}
-            <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="flex-1 flex flex-col items-center justify-center min-h-0 overflow-auto">
               {/* Cards Display */}
               <div className="flex gap-4 mb-8">
                 {gamePhase === 'start' ? (

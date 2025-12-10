@@ -8,14 +8,14 @@ interface SlideProps {
 
 export default function DockerIntroSlide({ contentVisible = true }: SlideProps) {
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-cyan font-display text-sm tracking-widest uppercase">Containere</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-cyan font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Containere</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           Ce este <span className="text-cyber-cyan">Docker</span>? 🐳
         </h1>
       </motion.div>
@@ -46,7 +46,7 @@ export default function DockerIntroSlide({ contentVisible = true }: SlideProps) 
                   transition={{ delay: 0.5 }}
                   className="bg-cyber-pink/10 p-3 rounded-lg text-center"
                 >
-                  <span className="text-xs font-display">App 1</span>
+                  <span className="text-[clamp(0.875rem,1.2vw,1rem)] font-display">App 1</span>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -147,8 +147,8 @@ export default function DockerIntroSlide({ contentVisible = true }: SlideProps) 
               >
                 <span className="text-2xl">{item.icon}</span>
                 <div>
-                  <div className="text-white font-medium text-sm">{item.title}</div>
-                  <div className="text-white/50 text-xs">{item.desc}</div>
+                  <div className="text-white font-medium text-[clamp(1rem,1.5vw,1.25rem)]">{item.title}</div>
+                  <div className="text-white/50 text-[clamp(0.875rem,1.2vw,1rem)]">{item.desc}</div>
                 </div>
               </motion.div>
             ))}

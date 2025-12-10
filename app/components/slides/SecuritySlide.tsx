@@ -35,14 +35,14 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
   ]
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(1rem,2vw,2rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-pink font-display text-sm tracking-widest uppercase">Best Practices</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-pink font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Best Practices</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           <span className="text-cyber-pink">Security</span> Basics 🔒
         </h1>
       </motion.div>
@@ -53,14 +53,14 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex gap-8"
+            className="flex-1 flex gap-[clamp(1rem,2vw,2rem)] min-h-0 overflow-hidden"
           >
             {/* Left: Common Vulnerabilities */}
             <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex-1"
+          className="flex-1 min-w-0 flex flex-col overflow-y-auto"
         >
           <h3 className="text-lg font-body font-semibold text-white/80 mb-4">⚠️ Vulnerabilități Comune</h3>
           <div className="space-y-4">
@@ -79,10 +79,10 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
                       <span className={`text-${vuln.color} font-display font-bold`}>{vuln.name}</span>
                       <span className="text-white/40 text-xs">({vuln.full})</span>
                     </div>
-                    <p className="text-white/60 text-sm mb-2">{vuln.desc}</p>
+                    <p className="text-white/60 text-[clamp(1rem,1.5vw,1.25rem)] mb-2">{vuln.desc}</p>
                     <div className="flex items-center gap-2">
-                      <span className="text-cyber-green text-xs">✓ Fix:</span>
-                      <span className="text-white/70 text-xs">{vuln.fix}</span>
+                      <span className="text-cyber-green text-[clamp(0.875rem,1.2vw,1rem)]">✓ Fix:</span>
+                      <span className="text-white/70 text-[clamp(0.875rem,1.2vw,1rem)]">{vuln.fix}</span>
                     </div>
                   </div>
                 </div>
@@ -102,10 +102,10 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
               <span className="text-cyber-cyan font-display font-bold">CORS</span>
               <span className="text-white/40 text-xs">(Cross-Origin Resource Sharing)</span>
             </div>
-            <p className="text-white/60 text-sm mb-2">
+            <p className="text-white/60 text-[clamp(1rem,1.5vw,1.25rem)] mb-2">
               Controlează ce domenii pot accesa API-ul tău
             </p>
-            <div className="code-block p-2 text-xs">
+            <div className="code-block p-2 text-[clamp(0.875rem,1.2vw,1rem)]">
               <span className="text-cyber-purple">Access-Control-Allow-Origin:</span> <span className="text-cyber-green">https://myapp.com</span>
             </div>
           </motion.div>
@@ -116,9 +116,9 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="flex-1 flex flex-col gap-4"
+          className="flex-1 flex flex-col gap-[clamp(0.5rem,1vw,1rem)] min-w-0 overflow-y-auto"
         >
-          <h3 className="text-lg font-body font-semibold text-white/80 mb-2">✅ Best Practices</h3>
+          <h3 className="text-[clamp(1.125rem,1.5vw,1.25rem)] font-body font-semibold text-white/80 mb-2 flex-shrink-0">✅ Best Practices</h3>
           
           {/* HTTPS */}
           <motion.div
@@ -131,12 +131,12 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
               <span className="text-2xl">🔐</span>
               <span className="text-cyber-green font-display font-bold">HTTPS Everywhere</span>
             </div>
-            <p className="text-white/60 text-sm">
+            <p className="text-white/60 text-[clamp(1rem,1.5vw,1.25rem)]">
               Criptează comunicația client-server. <span className="text-cyber-green">Obligatoriu</span> în producție!
             </p>
             <div className="mt-2 flex gap-2">
-              <span className="px-2 py-1 text-xs bg-cyber-green/20 text-cyber-green rounded">Let&apos;s Encrypt</span>
-              <span className="px-2 py-1 text-xs bg-cyber-green/20 text-cyber-green rounded">Free SSL</span>
+              <span className="px-2 py-1 text-[clamp(0.875rem,1.2vw,1rem)] bg-cyber-green/20 text-cyber-green rounded">Let&apos;s Encrypt</span>
+              <span className="px-2 py-1 text-[clamp(0.875rem,1.2vw,1rem)] bg-cyber-green/20 text-cyber-green rounded">Free SSL</span>
             </div>
           </motion.div>
 
@@ -151,10 +151,10 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
               <span className="text-2xl">🔑</span>
               <span className="text-cyber-orange font-display font-bold">Environment Variables</span>
             </div>
-            <p className="text-white/60 text-sm mb-2">
+            <p className="text-white/60 text-[clamp(1rem,1.5vw,1.25rem)] mb-2">
               <span className="text-cyber-pink">NICIODATĂ</span> nu pune secrets în cod!
             </p>
-            <div className="code-block p-3 text-xs space-y-1">
+            <div className="code-block p-3 text-[clamp(0.875rem,1.2vw,1rem)] space-y-1">
               <div><span className="text-white/40"># .env (în .gitignore!)</span></div>
               <div><span className="text-cyber-purple">DATABASE_URL</span>=<span className="text-cyber-green">&quot;postgres://...&quot;</span></div>
               <div><span className="text-cyber-purple">API_KEY</span>=<span className="text-cyber-green">&quot;sk_live_xxx&quot;</span></div>
@@ -173,14 +173,14 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
               <span className="text-2xl">🔒</span>
               <span className="text-cyber-purple font-display font-bold">Password Hashing</span>
             </div>
-            <p className="text-white/60 text-sm mb-2">
+            <p className="text-white/60 text-[clamp(1rem,1.5vw,1.25rem)] mb-2">
               Nu stoca parole în plain text. Folosește bcrypt sau Argon2.
             </p>
             <div className="flex gap-2 flex-wrap">
-              <span className="px-2 py-1 text-xs bg-cyber-pink/20 text-cyber-pink rounded line-through">MD5 ❌</span>
-              <span className="px-2 py-1 text-xs bg-cyber-pink/20 text-cyber-pink rounded line-through">SHA1 ❌</span>
-              <span className="px-2 py-1 text-xs bg-cyber-green/20 text-cyber-green rounded">bcrypt ✓</span>
-              <span className="px-2 py-1 text-xs bg-cyber-green/20 text-cyber-green rounded">Argon2 ✓</span>
+              <span className="px-2 py-1 text-[clamp(0.875rem,1.2vw,1rem)] bg-cyber-pink/20 text-cyber-pink rounded line-through">MD5 ❌</span>
+              <span className="px-2 py-1 text-[clamp(0.875rem,1.2vw,1rem)] bg-cyber-pink/20 text-cyber-pink rounded line-through">SHA1 ❌</span>
+              <span className="px-2 py-1 text-[clamp(0.875rem,1.2vw,1rem)] bg-cyber-green/20 text-cyber-green rounded">bcrypt ✓</span>
+              <span className="px-2 py-1 text-[clamp(0.875rem,1.2vw,1rem)] bg-cyber-green/20 text-cyber-green rounded">Argon2 ✓</span>
             </div>
           </motion.div>
 
@@ -192,7 +192,7 @@ export default function SecuritySlide({ contentVisible = true }: SlideProps) {
             className="diagram-box p-4 bg-cyber-cyan/5 border-cyber-cyan/20"
           >
             <h4 className="text-cyber-cyan font-display font-semibold text-sm mb-2">💡 Quick Tips</h4>
-            <ul className="space-y-1 text-xs text-white/60">
+            <ul className="space-y-1 text-[clamp(0.875rem,1.2vw,1rem)] text-white/60">
               <li>• Validează input pe <span className="text-cyber-cyan">client ȘI server</span></li>
               <li>• Folosește <span className="text-cyber-cyan">Content Security Policy</span> (CSP)</li>
               <li>• Setează <span className="text-cyber-cyan">HttpOnly</span> și <span className="text-cyber-cyan">Secure</span> pe cookies</li>

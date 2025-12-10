@@ -8,14 +8,14 @@ interface SlideProps {
 
 export default function CICDSlide({ contentVisible = true }: SlideProps) {
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(1rem,2vw,2rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-purple font-display text-sm tracking-widest uppercase">Automatizare</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-purple font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Automatizare</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           Ce este <span className="text-cyber-purple">CI/CD</span>? 🔄
         </h1>
       </motion.div>
@@ -27,16 +27,16 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 20 }}
-              className="flex-1 flex gap-12"
+              className="flex-1 flex gap-[clamp(1rem,2vw,3rem)] min-h-0 overflow-hidden"
             >
               {/* Left: CI */}
               <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex-1"
+          className="flex-1 min-w-0 flex flex-col"
         >
-          <div className="diagram-box p-8 h-full">
+          <div className="diagram-box p-[clamp(1rem,1.5vw,2rem)] h-full overflow-auto flex flex-col">
             <div className="flex items-center gap-4 mb-6">
               <span className="text-4xl">🔄</span>
               <div>
@@ -47,7 +47,7 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
               </div>
             </div>
 
-            <p className="text-white/70 text-sm mb-6 leading-relaxed">
+            <p className="text-white/70 text-[clamp(1rem,1.5vw,1.25rem)] mb-6 leading-relaxed">
               Integrarea continuă a codului în repository-ul principal, 
               cu <span className="text-cyber-cyan font-semibold">build</span> și <span className="text-cyber-cyan font-semibold">teste automate</span> la fiecare push.
             </p>
@@ -67,7 +67,7 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
                   className="flex items-center gap-3 p-3 bg-cyber-cyan/10 rounded-lg border border-cyber-cyan/20"
                 >
                   <span className="text-xl">{item.icon}</span>
-                  <span className="text-white/80 text-sm">{item.text}</span>
+                  <span className="text-white/80 text-[clamp(1rem,1.5vw,1.25rem)]">{item.text}</span>
                 </motion.div>
               ))}
             </div>
@@ -78,7 +78,7 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
               transition={{ delay: 1 }}
               className="mt-6 p-3 bg-cyber-cyan/5 rounded-lg border border-cyber-cyan/10"
             >
-              <p className="text-cyber-cyan text-xs font-display">
+              <p className="text-cyber-cyan text-[clamp(0.875rem,1.2vw,1rem)] font-display">
                 💡 Detectează probleme devreme, când sunt ușor de reparat
               </p>
             </motion.div>
@@ -90,9 +90,9 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="flex-1"
+          className="flex-1 min-w-0 flex flex-col"
         >
-          <div className="diagram-box p-8 h-full">
+          <div className="diagram-box p-[clamp(1rem,1.5vw,2rem)] h-full overflow-auto flex flex-col">
             <div className="flex items-center gap-4 mb-6">
               <span className="text-4xl">🚀</span>
               <div>
@@ -103,7 +103,7 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
               </div>
             </div>
 
-            <p className="text-white/70 text-sm mb-6 leading-relaxed">
+            <p className="text-white/70 text-[clamp(1rem,1.5vw,1.25rem)] mb-6 leading-relaxed">
               Livrarea continuă a codului în <span className="text-cyber-green font-semibold">producție</span>, 
               automat sau cu un singur click, după ce testele trec.
             </p>
@@ -123,7 +123,7 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
                   className="flex items-center gap-3 p-3 bg-cyber-green/10 rounded-lg border border-cyber-green/20"
                 >
                   <span className="text-xl">{item.icon}</span>
-                  <span className="text-white/80 text-sm">{item.text}</span>
+                  <span className="text-white/80 text-[clamp(1rem,1.5vw,1.25rem)]">{item.text}</span>
                 </motion.div>
               ))}
             </div>
@@ -147,9 +147,9 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
-            className="mt-8"
+            className="mt-[clamp(0.5rem,0.75vw,0.75rem)] flex-shrink-0"
           >
-            <div className="diagram-box p-6">
+            <div className="diagram-box p-[clamp(0.75rem,1vw,1.5rem)]">
               <h4 className="text-sm font-display text-white/50 mb-4 text-center">CI/CD Pipeline</h4>
               <div className="flex items-center justify-center gap-2">
                 {[
@@ -169,7 +169,7 @@ export default function CICDSlide({ contentVisible = true }: SlideProps) {
                   >
                     <div className={`px-4 py-2 rounded-lg bg-${step.color}/20 border border-${step.color}/30 text-center`}>
                       <div className="text-lg mb-1">{step.icon}</div>
-                      <div className={`text-xs font-display text-${step.color}`}>{step.label}</div>
+                      <div className={`text-[clamp(0.875rem,1.2vw,1rem)] font-display text-${step.color}`}>{step.label}</div>
                     </div>
                     {i < 5 && <span className="text-white/30 mx-2">→</span>}
                   </motion.div>

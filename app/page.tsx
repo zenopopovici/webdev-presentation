@@ -12,10 +12,10 @@ export default function Home() {
     const storedSlide = localStorage.getItem('currentSlide')
     if (storedSlide) {
       const index = parseInt(storedSlide)
-      if (index >= 0 && index < slides.length) {
+    if (index >= 0 && index < slides.length) {
         router.replace(`/slide/${slides[index].slug}`)
-        return
-      }
+      return
+    }
     }
     // Default to first slide
     router.replace(`/slide/${slides[0].slug}`)

@@ -17,14 +17,14 @@ export default function BrowserSlide({ contentVisible = true }: SlideProps) {
   ]
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(1rem,2vw,2rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-12"
+        className="mb-[clamp(0.5rem,1vw,1rem)] flex-shrink-0"
       >
-        <span className="text-cyber-purple font-display text-sm tracking-widest uppercase">Înțelegere</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-purple font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Înțelegere</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           Cum funcționează <span className="text-glow-purple text-cyber-purple">Browser-ul</span>
         </h1>
       </motion.div>
@@ -35,9 +35,9 @@ export default function BrowserSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex items-center justify-center"
+            className="flex-1 flex items-center justify-center min-h-0 overflow-auto"
           >
-            <div className="grid grid-cols-3 gap-6 max-w-6xl">
+            <div className="grid grid-cols-3 gap-[clamp(0.75rem,1.5vw,1.5rem)] max-w-6xl p-4">
               {components.map((comp, i) => (
                 <motion.div
                   key={comp.name}
@@ -48,11 +48,11 @@ export default function BrowserSlide({ contentVisible = true }: SlideProps) {
                 >
                   <div className="flex items-center gap-4 mb-3">
                     <span className="text-3xl">{comp.icon}</span>
-                    <h3 className={`text-xl font-body font-semibold ${comp.color}`}>
+                    <h3 className={`text-[clamp(1.25rem,2vw,1.5rem)] font-body font-semibold ${comp.color}`}>
                       {comp.name}
                     </h3>
                   </div>
-                  <p className="text-white/60 text-sm font-display">
+                  <p className="text-white/60 text-[clamp(1rem,1.5vw,1.25rem)] font-display">
                     {comp.desc}
                   </p>
                 </motion.div>

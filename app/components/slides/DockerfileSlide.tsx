@@ -40,14 +40,14 @@ export default function DockerfileSlide({ contentVisible = true }: SlideProps) {
   ]
 
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-[clamp(0.25rem,0.75vw,0.75rem)] flex-shrink-0"
       >
-        <span className="text-cyber-green font-display text-sm tracking-widest uppercase">Exemplu de Cod</span>
-        <h1 className="text-4xl font-body font-bold mt-2">
+        <span className="text-cyber-green font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">Exemplu de Cod</span>
+        <h1 className="text-[clamp(1.75rem,3.5vw,2.5rem)] font-body font-bold mt-1">
           <span className="text-cyber-green">Dockerfile</span> Simplu
         </h1>
       </motion.div>
@@ -58,16 +58,16 @@ export default function DockerfileSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex gap-8"
+            className="flex-1 flex gap-[clamp(0.75rem,1.5vw,2rem)] min-h-0 overflow-hidden"
           >
             {/* Dockerfile */}
             <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex-1"
+          className="flex-1 min-w-0 flex flex-col"
         >
-          <div className="code-block p-6 h-full overflow-auto">
+          <div className="code-block p-[clamp(0.75rem,1.5vw,1.5rem)] h-full overflow-auto flex flex-col">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-3 h-3 rounded-full bg-red-500/50" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
@@ -103,10 +103,10 @@ export default function DockerfileSlide({ contentVisible = true }: SlideProps) {
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="w-72"
+          className="w-[clamp(16rem,20vw,18rem)] flex-shrink-0 flex flex-col overflow-y-auto"
         >
-          <h3 className="text-lg font-body font-semibold mb-4 text-white/80">Instrucțiuni</h3>
-          <div className="space-y-3">
+          <h3 className="text-[clamp(1.125rem,1.5vw,1.25rem)] font-body font-semibold mb-[clamp(0.5rem,1vw,1rem)] text-white/80 flex-shrink-0">Instrucțiuni</h3>
+          <div className="space-y-[clamp(0.5rem,0.75vw,0.75rem)] flex-1">
             {explanations.map((item, i) => (
               <motion.div
                 key={item.keyword}
@@ -126,7 +126,7 @@ export default function DockerfileSlide({ contentVisible = true }: SlideProps) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2 }}
-            className="mt-6 diagram-box p-4"
+            className="mt-[clamp(0.75rem,1vw,1rem)] diagram-box p-[clamp(0.75rem,1vw,1rem)] flex-shrink-0"
           >
             <h4 className="text-sm font-body font-semibold text-cyber-orange mb-3">🚀 Build & Run</h4>
             <div className="space-y-2 font-display text-xs">

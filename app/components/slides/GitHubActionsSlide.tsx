@@ -8,14 +8,14 @@ interface SlideProps {
 
 export default function GitHubActionsSlide({ contentVisible = true }: SlideProps) {
   return (
-    <div className="w-full h-full flex flex-col p-16">
+    <div className="w-full h-full flex flex-col p-[clamp(0.75rem,1.5vw,1.5rem)] overflow-hidden">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-[clamp(0.25rem,0.75vw,0.75rem)] flex-shrink-0"
       >
-        <span className="text-cyber-purple font-display text-sm tracking-widest uppercase">CI/CD</span>
-        <h1 className="text-5xl font-body font-bold mt-2">
+        <span className="text-cyber-purple font-display text-[clamp(0.75rem,1vw,0.875rem)] tracking-widest uppercase">CI/CD</span>
+        <h1 className="text-[clamp(2rem,4vw,3rem)] font-body font-bold mt-1">
           <span className="text-cyber-purple">GitHub Actions</span> 🔄
         </h1>
       </motion.div>
@@ -26,33 +26,34 @@ export default function GitHubActionsSlide({ contentVisible = true }: SlideProps
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="flex-1 flex gap-12"
+            className="flex-1 flex gap-[clamp(1rem,2vw,3rem)] min-h-0 overflow-hidden"
           >
             {/* Workflow diagram */}
             <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex-1 flex items-center justify-center"
+          className="flex-1 min-w-0 flex items-center justify-center overflow-y-auto"
         >
-          <div className="relative">
+          <div className="relative w-full max-w-2xl flex flex-col items-center">
             {/* Trigger */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="diagram-box p-4 w-48 text-center mb-4"
+              className="diagram-box p-[clamp(0.75rem,1vw,1rem)] w-full max-w-[14rem] text-center"
             >
               <span className="text-2xl block mb-2">🎯</span>
               <h4 className="text-cyber-cyan font-display font-semibold text-sm">Declanșator</h4>
               <p className="text-white/50 text-xs">push, pull_request, schedule</p>
             </motion.div>
 
+            {/* Connection line to Workflow */}
             <motion.div
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
               transition={{ delay: 0.5 }}
-              className="w-0.5 h-8 bg-cyber-purple/50 mx-auto"
+              className="w-1 h-[clamp(1.5rem,3vw,2.5rem)] bg-gradient-to-b from-cyber-cyan/50 to-cyber-purple/50 my-[clamp(0.5rem,1vw,1rem)]"
             />
 
             {/* Workflow */}
@@ -60,12 +61,12 @@ export default function GitHubActionsSlide({ contentVisible = true }: SlideProps
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.6 }}
-              className="diagram-box p-6 glow-purple"
+              className="diagram-box p-[clamp(0.75rem,1.5vw,1.5rem)] glow-purple w-full"
             >
-              <h4 className="text-cyber-purple font-display font-semibold text-center mb-4">Workflow</h4>
+              <h4 className="text-cyber-purple font-display font-semibold text-center mb-[clamp(0.5rem,1vw,1rem)]">Workflow</h4>
               
               {/* Jobs */}
-              <div className="flex gap-4">
+              <div className="flex gap-[clamp(0.5rem,1vw,1rem)]">
                 {['Build', 'Test', 'Deploy'].map((job, i) => (
                   <motion.div
                     key={job}
@@ -100,11 +101,12 @@ export default function GitHubActionsSlide({ contentVisible = true }: SlideProps
               </div>
             </motion.div>
 
+            {/* Connection line to Deployed */}
             <motion.div
               initial={{ scaleY: 0 }}
               animate={{ scaleY: 1 }}
               transition={{ delay: 1.2 }}
-              className="w-0.5 h-8 bg-cyber-green/50 mx-auto"
+              className="w-1 h-[clamp(1.5rem,3vw,2.5rem)] bg-gradient-to-b from-cyber-purple/50 to-cyber-green/50 my-[clamp(0.5rem,1vw,1rem)]"
             />
 
             {/* Result */}
@@ -112,10 +114,10 @@ export default function GitHubActionsSlide({ contentVisible = true }: SlideProps
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.3 }}
-              className="diagram-box p-4 w-48 text-center mx-auto glow-green"
+              className="diagram-box p-[clamp(0.75rem,1vw,1rem)] w-full max-w-[14rem] glow-green text-center"
             >
               <span className="text-2xl block mb-2">✅</span>
-              <h4 className="text-cyber-green font-display font-semibold text-sm">Deployat!</h4>
+              <h4 className="text-cyber-green font-display font-semibold text-sm">Deployed</h4>
             </motion.div>
           </div>
         </motion.div>
@@ -125,10 +127,10 @@ export default function GitHubActionsSlide({ contentVisible = true }: SlideProps
           initial={{ opacity: 0, x: 30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4 }}
-          className="w-80"
+          className="w-[clamp(18rem,25vw,20rem)] flex-shrink-0 flex flex-col overflow-y-auto"
         >
-          <h3 className="text-lg font-body font-semibold mb-4 text-white/80">Concepte Cheie</h3>
-          <div className="space-y-3">
+          <h3 className="text-[clamp(1.125rem,1.5vw,1.25rem)] font-body font-semibold mb-[clamp(0.5rem,1vw,1rem)] text-white/80 flex-shrink-0">Concepte Cheie</h3>
+          <div className="space-y-[clamp(0.5rem,0.75vw,0.75rem)] flex-1">
             {[
               { term: 'Workflow', desc: 'Proces automat definit în YAML', icon: '📋' },
               { term: 'Job', desc: 'Set de pași rulând pe același runner', icon: '🔧' },
@@ -158,7 +160,7 @@ export default function GitHubActionsSlide({ contentVisible = true }: SlideProps
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.3 }}
-            className="mt-6 diagram-box p-4"
+            className="mt-[clamp(0.75rem,1vw,1rem)] diagram-box p-[clamp(0.75rem,1vw,1rem)] flex-shrink-0"
           >
             <h4 className="text-sm font-body font-semibold text-cyber-orange mb-2">📁 Locația Fișierului</h4>
             <code className="text-xs font-display text-white/60 bg-black/30 px-2 py-1 rounded block">
