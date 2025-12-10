@@ -1,27 +1,29 @@
 # ============================================
-# Dockerfile pentru aplicație Next.js
+# Dockerfile pentru Poker Game (Next.js)
 # ============================================
+# 
+# Build: docker build -t poker-game .
+# Run:   docker run -p 3000:3000 poker-game
+#
 # IMPORTANT: Acest Dockerfile folosește "standalone" output mode
-# Adaugă în next.config.js:
+# Asigură-te că ai în next.config.js:
 #   module.exports = { output: 'standalone' }
 # ============================================
 
 # ETAPA 1: Dependințe
-# Folosim o imagine Node.js Alpine (mai mică și mai rapidă)
 FROM node:20-alpine AS deps
 
-# Instalăm libc6-compat pentru compatibilitate
+# Instalăm libc6-compat pentru compatibilitate Alpine
 RUN apk add --no-cache libc6-compat
 
-# Setăm directorul de lucru
 WORKDIR /app
 
-# Copiem fișierele package pentru a instala dependințele
-# (acestea se schimbă rar, deci Docker le va cache-ui)
+# Copiem package files pentru cache eficient
 COPY package.json package-lock.json* ./
 
 # Instalăm dependințele
-RUN npm ci
+# Folosim npm install dacă nu există package-lock.json
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 
 # ============================================
@@ -34,13 +36,13 @@ WORKDIR /app
 # Copiem dependințele din etapa anterioară
 COPY --from=deps /app/node_modules ./node_modules
 
-# Copiem tot codul sursă
+# Copiem codul sursă
 COPY . .
 
 # Dezactivăm telemetria Next.js
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Construim aplicația pentru producție
+# Build pentru producție
 RUN npm run build
 
 
@@ -51,32 +53,33 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Setăm variabila de mediu pentru producție
+# Setări producție
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Creăm un user non-root pentru securitate
+# Creăm user non-root pentru securitate
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copiem fișierele necesare pentru rulare
+# Copiem fișierele necesare
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
-# Copiem build-ul Next.js (standalone mode)
-# Asigură-te că ai output: 'standalone' în next.config.js
+# Copiem standalone build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Schimbăm la user-ul non-root
+# Schimbăm la user non-root
 USER nextjs
 
-# Expunem portul aplicației
-EXPOSE 3000
-
-# Setăm variabila PORT
-ENV PORT=3000
+# Port și hostname
+EXPOSE 3030
+ENV PORT=3030
 ENV HOSTNAME="0.0.0.0"
 
-# Comanda de start
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3030', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"
+
+# Start server
 CMD ["node", "server.js"]

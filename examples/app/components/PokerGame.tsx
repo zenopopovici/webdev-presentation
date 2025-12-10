@@ -1,24 +1,4 @@
-/**
- * ===========================================
- * Poker Game - React + Deck of Cards API
- * ===========================================
- * 
- * Un joc simplu de 5-Card Draw Poker folosind:
- * - React (useState, useCallback)
- * - Fetch API pentru requests HTTP
- * - Deck of Cards API (https://deckofcardsapi.com/)
- * 
- * Cum să folosești:
- * 1. Copiază acest fișier în proiectul tău React/Next.js
- * 2. Importă componenta: import PokerGame from './PokerGame'
- * 3. Folosește-o: <PokerGame />
- * 
- * Dependințe:
- * - React 18+
- * - Tailwind CSS (opțional, pentru styling)
- */
-
-'use client' // Necessar pentru Next.js App Router
+'use client'
 
 import { useState, useCallback } from 'react'
 
@@ -27,17 +7,16 @@ import { useState, useCallback } from 'react'
 // ===========================================
 
 interface Card {
-  code: string      // ex: "KH" (King of Hearts)
-  image: string     // URL către imaginea cărții
-  value: string     // "KING", "QUEEN", "ACE", "2", etc.
-  suit: string      // "HEARTS", "DIAMONDS", "CLUBS", "SPADES"
+  code: string
+  image: string
+  value: string
+  suit: string
 }
 
 interface DeckResponse {
   success: boolean
   deck_id: string
   remaining: number
-  shuffled?: boolean
 }
 
 interface DrawResponse {
@@ -48,11 +27,10 @@ interface DrawResponse {
 }
 
 // ===========================================
-// COMPONENTA PRINCIPALĂ
+// COMPONENTA POKER GAME
 // ===========================================
 
 export default function PokerGame() {
-  // State pentru joc
   const [deckId, setDeckId] = useState<string | null>(null)
   const [cards, setCards] = useState<Card[]>([])
   const [selectedCards, setSelectedCards] = useState<Set<number>>(new Set())
@@ -61,42 +39,28 @@ export default function PokerGame() {
   const [remaining, setRemaining] = useState(52)
   const [handRank, setHandRank] = useState<string>('')
 
-  // ===========================================
-  // EVALUARE MÂNĂ POKER
-  // ===========================================
-  
+  // Evaluare mână poker
   const evaluateHand = useCallback((hand: Card[]): string => {
     if (hand.length !== 5) return ''
 
-    // Convertim valorile în numere pentru comparație
     const values = hand.map(c => {
       if (c.value === 'ACE') return 14
       if (c.value === 'KING') return 13
       if (c.value === 'QUEEN') return 12
       if (c.value === 'JACK') return 11
-      return parseInt(c.value) || 10 // "10" se parsează corect
+      return parseInt(c.value) || 10
     }).sort((a, b) => a - b)
 
     const suits = hand.map(c => c.suit)
-    
-    // Numărăm câte cărți de fiecare valoare avem
     const valueCounts: Record<number, number> = {}
-    values.forEach(v => { 
-      valueCounts[v] = (valueCounts[v] || 0) + 1 
-    })
+    values.forEach(v => { valueCounts[v] = (valueCounts[v] || 0) + 1 })
     const counts = Object.values(valueCounts).sort((a, b) => b - a)
 
-    // Verificăm flush (toate aceeași culoare)
     const isFlush = suits.every(s => s === suits[0])
-    
-    // Verificăm straight (valori consecutive)
     const isStraight = values.every((v, i) => i === 0 || v === values[i - 1] + 1) ||
-      (values.join(',') === '2,3,4,5,14') // Ace-low straight (A-2-3-4-5)
+      (values.join(',') === '2,3,4,5,14')
 
-    // Determinăm ranking-ul
-    if (isFlush && isStraight && values[4] === 14 && values[0] === 10) {
-      return '🏆 ROYAL FLUSH!'
-    }
+    if (isFlush && isStraight && values[4] === 14 && values[0] === 10) return '🏆 ROYAL FLUSH!'
     if (isFlush && isStraight) return '⭐ Straight Flush!'
     if (counts[0] === 4) return '🎰 Four of a Kind!'
     if (counts[0] === 3 && counts[1] === 2) return '🏠 Full House!'
@@ -108,36 +72,20 @@ export default function PokerGame() {
     return '🃏 High Card'
   }, [])
 
-  // ===========================================
-  // API CALLS
-  // ===========================================
-
-  /**
-   * Începe un joc nou:
-   * 1. Creează un deck nou și îl amestecă
-   * 2. Extrage 5 cărți
-   */
+  // Start joc nou
   const startNewGame = useCallback(async () => {
     setLoading(true)
     setSelectedCards(new Set())
     setHandRank('')
     
     try {
-      // STEP 1: Shuffle new deck
-      // GET https://deckofcardsapi.com/api/deck/new/shuffle/
-      const shuffleRes = await fetch(
-        'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1'
-      )
+      const shuffleRes = await fetch('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
       const shuffleData: DeckResponse = await shuffleRes.json()
       
       if (shuffleData.success) {
         setDeckId(shuffleData.deck_id)
         
-        // STEP 2: Draw 5 cards
-        // GET https://deckofcardsapi.com/api/deck/{deck_id}/draw/?count=5
-        const drawRes = await fetch(
-          `https://deckofcardsapi.com/api/deck/${shuffleData.deck_id}/draw/?count=5`
-        )
+        const drawRes = await fetch(`https://deckofcardsapi.com/api/deck/${shuffleData.deck_id}/draw/?count=5`)
         const drawData: DrawResponse = await drawRes.json()
         
         if (drawData.success) {
@@ -147,16 +95,14 @@ export default function PokerGame() {
         }
       }
     } catch (error) {
-      console.error('Error starting game:', error)
-      alert('Eroare la conectarea cu API-ul. Verifică conexiunea la internet.')
+      console.error('Error:', error)
+      alert('Eroare la conectare. Verifică conexiunea la internet.')
     }
     
     setLoading(false)
   }, [])
 
-  /**
-   * Toggle selecția unei cărți pentru discard
-   */
+  // Toggle selecție carte
   const toggleCardSelection = useCallback((index: number) => {
     if (gamePhase !== 'drawn') return
     
@@ -171,12 +117,9 @@ export default function PokerGame() {
     })
   }, [gamePhase])
 
-  /**
-   * Aruncă cărțile selectate și extrage altele noi
-   */
+  // Discard și draw
   const discardAndDraw = useCallback(async () => {
     if (!deckId || selectedCards.size === 0) {
-      // Nu sunt cărți de aruncat, evaluăm direct
       setHandRank(evaluateHand(cards))
       setGamePhase('final')
       return
@@ -185,14 +128,10 @@ export default function PokerGame() {
     setLoading(true)
     
     try {
-      // Extragem cărți noi pentru cele aruncate
-      const drawRes = await fetch(
-        `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${selectedCards.size}`
-      )
+      const drawRes = await fetch(`https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${selectedCards.size}`)
       const drawData: DrawResponse = await drawRes.json()
       
       if (drawData.success) {
-        // Înlocuim cărțile selectate cu cele noi
         const newCards = [...cards]
         let newCardIndex = 0
         selectedCards.forEach(index => {
@@ -206,23 +145,17 @@ export default function PokerGame() {
         setGamePhase('final')
       }
     } catch (error) {
-      console.error('Error drawing cards:', error)
+      console.error('Error:', error)
     }
     
     setLoading(false)
   }, [deckId, selectedCards, cards, evaluateHand])
 
-  /**
-   * Păstrează toate cărțile (fără discard)
-   */
+  // Hold all
   const holdAll = useCallback(() => {
     setHandRank(evaluateHand(cards))
     setGamePhase('final')
   }, [cards, evaluateHand])
-
-  // ===========================================
-  // RENDER
-  // ===========================================
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 to-green-800 p-8">
@@ -231,13 +164,8 @@ export default function PokerGame() {
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">🃏 5-Card Draw Poker</h1>
           <p className="text-green-200 text-sm">
-            Folosind Deck of Cards API • 
-            <a 
-              href="https://deckofcardsapi.com/" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="underline ml-1"
-            >
+            Folosind{' '}
+            <a href="https://deckofcardsapi.com/" target="_blank" rel="noopener noreferrer" className="underline">
               deckofcardsapi.com
             </a>
           </p>
@@ -245,41 +173,27 @@ export default function PokerGame() {
 
         {/* Game Area */}
         <div className="bg-green-800/50 rounded-2xl p-8 border-4 border-yellow-600/30">
-          {/* Cards Display */}
+          {/* Cards */}
           <div className="flex justify-center gap-4 mb-8">
             {gamePhase === 'start' ? (
-              // Card backs before game starts
               Array(5).fill(null).map((_, i) => (
-                <div
-                  key={i}
-                  className="w-24 h-36 rounded-lg bg-blue-900 border-2 border-blue-700 
-                           flex items-center justify-center shadow-lg"
-                >
+                <div key={i} className="w-24 h-36 rounded-lg bg-blue-900 border-2 border-blue-700 flex items-center justify-center shadow-lg">
                   <span className="text-4xl opacity-50">🂠</span>
                 </div>
               ))
             ) : (
-              // Actual cards
               cards.map((card, i) => (
                 <button
                   key={card.code}
                   onClick={() => toggleCardSelection(i)}
                   disabled={gamePhase === 'final'}
-                  className={`
-                    relative w-24 h-36 rounded-lg overflow-hidden shadow-lg
-                    transition-all duration-200 transform
+                  className={`relative w-24 h-36 rounded-lg overflow-hidden shadow-lg transition-all duration-200 transform
                     ${gamePhase === 'drawn' ? 'cursor-pointer hover:scale-105' : ''}
-                    ${selectedCards.has(i) ? 'ring-4 ring-red-500 -translate-y-4' : ''}
-                  `}
+                    ${selectedCards.has(i) ? 'ring-4 ring-red-500 -translate-y-4' : ''}`}
                 >
-                  <img 
-                    src={card.image} 
-                    alt={`${card.value} of ${card.suit}`}
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={card.image} alt={`${card.value} of ${card.suit}`} className="w-full h-full object-cover" />
                   {selectedCards.has(i) && gamePhase === 'drawn' && (
-                    <div className="absolute top-1 right-1 bg-red-500 text-white 
-                                  text-xs px-2 py-1 rounded font-bold">
+                    <div className="absolute top-1 right-1 bg-red-500 text-white text-xs px-2 py-1 rounded font-bold">
                       DISCARD
                     </div>
                   )}
@@ -288,11 +202,10 @@ export default function PokerGame() {
             )}
           </div>
 
-          {/* Hand Rank Display */}
+          {/* Hand Rank */}
           {handRank && (
             <div className="text-center mb-6">
-              <span className="text-3xl font-bold text-yellow-400 
-                           bg-black/30 px-6 py-2 rounded-full">
+              <span className="text-3xl font-bold text-yellow-400 bg-black/30 px-6 py-2 rounded-full">
                 {handRank}
               </span>
             </div>
@@ -305,16 +218,13 @@ export default function PokerGame() {
             </p>
           )}
 
-          {/* Action Buttons */}
+          {/* Buttons */}
           <div className="flex justify-center gap-4">
             {gamePhase === 'start' && (
               <button
                 onClick={startNewGame}
                 disabled={loading}
-                className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 
-                         text-black font-bold rounded-lg text-lg
-                         disabled:opacity-50 disabled:cursor-not-allowed
-                         transition-colors"
+                className="px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-bold rounded-lg text-lg disabled:opacity-50 transition-colors"
               >
                 {loading ? '🔄 Se încarcă...' : '🎴 Deal Cards'}
               </button>
@@ -322,22 +232,10 @@ export default function PokerGame() {
 
             {gamePhase === 'drawn' && (
               <>
-                <button
-                  onClick={holdAll}
-                  disabled={loading}
-                  className="px-6 py-3 bg-blue-500 hover:bg-blue-400 
-                           text-white font-bold rounded-lg
-                           disabled:opacity-50 transition-colors"
-                >
+                <button onClick={holdAll} disabled={loading} className="px-6 py-3 bg-blue-500 hover:bg-blue-400 text-white font-bold rounded-lg disabled:opacity-50 transition-colors">
                   ✋ Hold All
                 </button>
-                <button
-                  onClick={discardAndDraw}
-                  disabled={loading}
-                  className="px-6 py-3 bg-red-500 hover:bg-red-400 
-                           text-white font-bold rounded-lg
-                           disabled:opacity-50 transition-colors"
-                >
+                <button onClick={discardAndDraw} disabled={loading} className="px-6 py-3 bg-red-500 hover:bg-red-400 text-white font-bold rounded-lg disabled:opacity-50 transition-colors">
                   {loading ? '🔄...' : `🔄 Draw ${selectedCards.size > 0 ? `(${selectedCards.size})` : ''}`}
                 </button>
               </>
@@ -347,9 +245,7 @@ export default function PokerGame() {
               <button
                 onClick={startNewGame}
                 disabled={loading}
-                className="px-8 py-3 bg-purple-500 hover:bg-purple-400 
-                         text-white font-bold rounded-lg text-lg
-                         disabled:opacity-50 transition-colors"
+                className="px-8 py-3 bg-purple-500 hover:bg-purple-400 text-white font-bold rounded-lg text-lg disabled:opacity-50 transition-colors"
               >
                 {loading ? '🔄 Se încarcă...' : '🔄 New Game'}
               </button>
@@ -361,24 +257,16 @@ export default function PokerGame() {
         <div className="mt-6 p-4 bg-black/30 rounded-lg text-sm text-green-200">
           <div className="flex justify-between items-center">
             <div className="flex gap-6">
-              <span>
-                API: <code className="text-cyan-400">deckofcardsapi.com</code>
-              </span>
-              {deckId && (
-                <span>
-                  Deck ID: <code className="text-purple-400">{deckId}</code>
-                </span>
-              )}
-              <span>
-                Remaining: <code className="text-green-400">{remaining}</code>
-              </span>
+              <span>API: <code className="text-cyan-400">deckofcardsapi.com</code></span>
+              {deckId && <span>Deck ID: <code className="text-purple-400">{deckId}</code></span>}
+              <span>Remaining: <code className="text-green-400">{remaining}</code></span>
             </div>
           </div>
         </div>
 
-        {/* Hand Rankings Reference */}
+        {/* Hand Rankings */}
         <div className="mt-6 p-4 bg-black/20 rounded-lg">
-          <h3 className="text-white font-bold mb-2">🏆 Hand Rankings (cel mai bun → cel mai slab)</h3>
+          <h3 className="text-white font-bold mb-2">🏆 Hand Rankings</h3>
           <div className="grid grid-cols-5 gap-2 text-xs text-green-200">
             <span>🏆 Royal Flush</span>
             <span>⭐ Straight Flush</span>

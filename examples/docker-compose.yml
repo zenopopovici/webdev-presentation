@@ -1,43 +1,49 @@
 # ============================================
-# Docker Compose pentru aplicație Next.js
+# Docker Compose - Poker Game
 # ============================================
-# Rulează cu: docker compose up -d
-# Oprește cu: docker compose down
-# Vezi logs: docker compose logs -f web
+# 
+# Comenzi utile:
+#   docker compose up -d          # Pornește în background
+#   docker compose down           # Oprește
+#   docker compose logs -f        # Vezi logs
+#   docker compose build --no-cache  # Rebuild complet
+#
+# Accesează: http://localhost:3030
+# ============================================
 
 services:
   # ==========================================
-  # Serviciul principal - Aplicația Web
+  # Poker Game - Next.js App
   # ==========================================
-  web:
-    # Construiește imaginea din Dockerfile-ul local
+  poker-game:
     build:
       context: .
       dockerfile: Dockerfile
     
-    # Sau folosește o imagine existentă:
-    # image: ghcr.io/username/app-name:latest
+    # Sau folosește imaginea din GitHub Container Registry:
+    # image: ghcr.io/USERNAME/poker-game:latest
     
-    # Numele containerului
-    container_name: nextjs-app
-    
-    # Restart automat dacă containerul cade
+    container_name: poker-game
     restart: unless-stopped
     
-    # Mapare porturi: HOST:CONTAINER
+    # Porturi: HOST:CONTAINER
     ports:
-      - "3000:3000"
+      - "3030:3030"
     
     # Variabile de mediu
     environment:
       - NODE_ENV=production
       - NEXT_TELEMETRY_DISABLED=1
     
-    # Sau folosește un fișier .env:
-    # env_file:
-    #   - .env.production
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3030', (r) => process.exit(r.statusCode === 200 ? 0 : 1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     
-    # Limite de resurse (opțional)
+    # Limite resurse (opțional)
     deploy:
       resources:
         limits:
@@ -47,21 +53,14 @@ services:
           cpus: '0.25'
           memory: 256M
     
-    # Health check pentru a verifica dacă aplicația funcționează
-    healthcheck:
-      test: ["CMD-SHELL", "node -e \"require('http').get('http://localhost:3000/api/health', (r) => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))\""]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    
-    # Rețeaua în care rulează
     networks:
-      - app-network
+      - poker-network
 
   # ==========================================
-  # Serviciu opțional - Nginx Reverse Proxy
+  # Nginx Reverse Proxy (opțional)
   # ==========================================
+  # Decomentează pentru HTTPS și load balancing
+  # 
   # nginx:
   #   image: nginx:alpine
   #   container_name: nginx-proxy
@@ -73,42 +72,13 @@ services:
   #     - ./nginx.conf:/etc/nginx/nginx.conf:ro
   #     - ./certs:/etc/nginx/certs:ro
   #   depends_on:
-  #     - web
+  #     - poker-game
   #   networks:
-  #     - app-network
-
-  # ==========================================
-  # Serviciu opțional - Bază de date PostgreSQL
-  # ==========================================
-  # db:
-  #   image: postgres:16-alpine
-  #   container_name: postgres-db
-  #   restart: unless-stopped
-  #   environment:
-  #     POSTGRES_USER: myuser
-  #     POSTGRES_PASSWORD: mypassword
-  #     POSTGRES_DB: mydb
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-  #   networks:
-  #     - app-network
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U myuser -d mydb"]
-  #     interval: 10s
-  #     timeout: 5s
-  #     retries: 5
+  #     - poker-network
 
 # ==========================================
 # Rețele
 # ==========================================
 networks:
-  app-network:
+  poker-network:
     driver: bridge
-
-# ==========================================
-# Volume-uri pentru persistență (opțional)
-# ==========================================
-# volumes:
-#   postgres_data:
