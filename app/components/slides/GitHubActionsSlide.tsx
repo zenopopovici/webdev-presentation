@@ -1,8 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-export default function GitHubActionsSlide() {
+interface SlideProps {
+  contentVisible?: boolean
+}
+
+export default function GitHubActionsSlide({ contentVisible = true }: SlideProps) {
   return (
     <div className="w-full h-full flex flex-col p-16">
       <motion.div
@@ -16,9 +20,16 @@ export default function GitHubActionsSlide() {
         </h1>
       </motion.div>
 
-      <div className="flex-1 flex gap-12">
-        {/* Workflow diagram */}
-        <motion.div
+      <AnimatePresence>
+        {contentVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="flex-1 flex gap-12"
+          >
+            {/* Workflow diagram */}
+            <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
@@ -154,8 +165,10 @@ export default function GitHubActionsSlide() {
               .github/workflows/*.yml
             </code>
           </motion.div>
-        </motion.div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

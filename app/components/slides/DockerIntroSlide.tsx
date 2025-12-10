@@ -1,8 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-export default function DockerIntroSlide() {
+interface SlideProps {
+  contentVisible?: boolean
+}
+
+export default function DockerIntroSlide({ contentVisible = true }: SlideProps) {
   return (
     <div className="w-full h-full flex flex-col p-16">
       <motion.div
@@ -16,14 +20,21 @@ export default function DockerIntroSlide() {
         </h1>
       </motion.div>
 
-      <div className="flex-1 flex gap-12 items-center">
-        {/* Traditional vs Containers comparison */}
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          className="flex-1"
-        >
+      <AnimatePresence>
+        {contentVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="flex-1 flex gap-12 items-center"
+          >
+            {/* Traditional vs Containers comparison */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex-1"
+            >
           <div className="grid grid-cols-2 gap-8">
             {/* Traditional */}
             <div className="diagram-box p-6">
@@ -142,8 +153,10 @@ export default function DockerIntroSlide() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

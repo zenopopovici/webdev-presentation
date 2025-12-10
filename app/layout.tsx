@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Dezvoltare Web în Profunzime',
+  title: 'Web Development - Tips & Tricks',
   description: 'Prezentare interactivă despre tehnologii web',
 }
 

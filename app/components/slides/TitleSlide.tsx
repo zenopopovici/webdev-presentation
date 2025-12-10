@@ -1,9 +1,13 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-export default function TitleSlide() {
+interface SlideProps {
+  contentVisible?: boolean
+}
+
+export default function TitleSlide({ contentVisible = true }: SlideProps) {
   const [dimensions, setDimensions] = useState({ width: 1920, height: 1080 })
 
   useEffect(() => {
@@ -47,43 +51,51 @@ export default function TitleSlide() {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <span className="text-6xl">🚀</span>
+          <span className="text-6xl">💡</span>
         </motion.div>
 
         <h1 className="text-7xl font-body font-bold mb-6 bg-gradient-to-r from-cyber-purple via-cyber-pink to-cyber-cyan bg-clip-text text-transparent">
-          Dezvoltare Web
+          Web Development
         </h1>
         <h2 className="text-5xl font-body font-light text-white/90 mb-8">
-          În Profunzime
+          Tips & Tricks
         </h2>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-          className="flex flex-wrap justify-center gap-4 mt-12"
-        >
-          {['Browser', 'JavaScript', 'REST API', 'Docker', 'GitHub Actions'].map((topic, i) => (
-            <motion.span
-              key={topic}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 + i * 0.1 }}
-              className="px-6 py-3 rounded-full border border-cyber-purple/50 text-cyber-purple font-display text-lg"
-            >
-              {topic}
-            </motion.span>
-          ))}
-        </motion.div>
+        <AnimatePresence>
+          {contentVisible && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="flex flex-wrap justify-center gap-4 mt-12"
+              >
+                {['Browser', 'JavaScript', 'REST API', 'Docker', 'GitHub Actions'].map((topic, i) => (
+                  <motion.span
+                    key={topic}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 + i * 0.1 }}
+                    className="px-6 py-3 rounded-full border border-cyber-purple/50 text-cyber-purple font-display text-lg"
+                  >
+                    {topic}
+                  </motion.span>
+                ))}
+              </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="mt-16 text-white/50 font-display text-sm"
-        >
-          Apasă <span className="text-cyber-cyan">→</span> sau <span className="text-cyber-cyan">Space</span> pentru a continua
-        </motion.p>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 1.2 }}
+                className="mt-16 text-white/50 font-display text-sm"
+              >
+                Apasă <span className="text-cyber-cyan">→</span> sau <span className="text-cyber-cyan">Space</span> pentru a continua
+              </motion.p>
+            </>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   )

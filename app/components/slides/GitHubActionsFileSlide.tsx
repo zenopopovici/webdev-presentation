@@ -1,8 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-export default function GitHubActionsFileSlide() {
+interface SlideProps {
+  contentVisible?: boolean
+}
+
+export default function GitHubActionsFileSlide({ contentVisible = true }: SlideProps) {
   const yamlLines = [
     { code: 'name: Pipeline CI/CD', indent: 0, type: 'key-value' },
     { code: '', indent: 0, type: 'empty' },
@@ -58,9 +62,16 @@ export default function GitHubActionsFileSlide() {
         </h1>
       </motion.div>
 
-      <div className="flex-1 flex gap-8">
-        {/* YAML File */}
-        <motion.div
+      <AnimatePresence>
+        {contentVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="flex-1 flex gap-8"
+          >
+            {/* YAML File */}
+            <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
@@ -136,8 +147,10 @@ export default function GitHubActionsFileSlide() {
               <div className="text-white/60">docker/build-push-action</div>
             </div>
           </motion.div>
-        </motion.div>
-      </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

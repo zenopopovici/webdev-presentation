@@ -1,8 +1,12 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-export default function DockerHowSlide() {
+interface SlideProps {
+  contentVisible?: boolean
+}
+
+export default function DockerHowSlide({ contentVisible = true }: SlideProps) {
   return (
     <div className="w-full h-full flex flex-col p-16">
       <motion.div
@@ -16,9 +20,16 @@ export default function DockerHowSlide() {
         </h1>
       </motion.div>
 
-      <div className="flex-1 flex flex-col">
-        {/* Docker workflow diagram */}
-        <div className="flex-1 flex items-center justify-center">
+      <AnimatePresence>
+        {contentVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="flex-1 flex flex-col"
+          >
+            {/* Docker workflow diagram */}
+            <div className="flex-1 flex items-center justify-center">
           <div className="flex items-center gap-8 w-full max-w-5xl">
             {/* Dockerfile */}
             <motion.div
@@ -128,7 +139,9 @@ export default function DockerHowSlide() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
